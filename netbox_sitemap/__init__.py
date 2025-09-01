@@ -1,19 +1,19 @@
-"""Top-level package for NetBox Sitemap."""
+"""Top-level package for NetBox Sitemap Plugin."""
 
-__author__ = """Lars"""
-__email__ = "mail@ldaeschner.de"
+__author__ = """Lars Däschner"""
+__email__ = "contact@ldaeschner.de"
 __version__ = "0.1.0"
 
 
 from netbox.plugins import PluginConfig
 
 
-class NetBoxSitemapConfig(PluginConfig):
+class SitemapConfig(PluginConfig):
     name = "netbox_sitemap"
-    verbose_name = "NetBox Sitemap"
-    description = "NetBox plugin to display sites on a map."
+    verbose_name = "NetBox Sitemap Plugin"
+    description = "NetBox plugin for displaying sites on a map."
     version = "version"
     base_url = "netbox_sitemap"
 
 
-config = NetBoxSitemapConfig
+config = SitemapConfig

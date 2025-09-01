@@ -1,12 +1,32 @@
 from django import forms
-from ipam.models import Prefix
-from netbox.forms import NetBoxModelForm, NetBoxModelFilterSetForm
-from utilities.forms.fields import CommentField, DynamicModelChoiceField
+from netbox.forms import NetBoxModelForm
+from utilities.forms.fields import CommentField, DynamicModelMultipleChoiceField
+from utilities.forms.rendering import FieldSet
+from dcim.models import SiteGroup, Site
 
-from .models import NetBoxSitemap
+from .models import Sitemap
 
 
-class NetBoxSitemapForm(NetBoxModelForm):
+class SitemapForm(NetBoxModelForm):
+    site_groups = DynamicModelMultipleChoiceField(
+        label=('Site Groups'),
+        queryset=SiteGroup.objects.all(),
+        required=False,
+        quick_add=True
+    )
+    sites = DynamicModelMultipleChoiceField(
+        label=('Sites'),
+        queryset=Site.objects.all(),
+        required=False,
+        quick_add=True
+    )
+    comments = CommentField()
+
+    fieldsets = (
+        FieldSet(
+            'name', 'site_groups', 'sites', 'tags', name=('SiteMap')),
+    )
+
     class Meta:
-        model = NetBoxSitemap
-        fields = ("name", "tags")
+        model = Sitemap
+        fields = ('name', 'site_groups', 'sites', 'tags', 'comments')

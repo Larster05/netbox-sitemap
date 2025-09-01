@@ -1,4 +1,4 @@
-sources = NetBox Sitemap
+sources = NetBox Sitemap Plugin
 
 .PHONY: test format lint unittest pre-commit clean
 test: format lint unittest

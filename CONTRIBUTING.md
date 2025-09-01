@@ -43,8 +43,8 @@ and "help wanted" is open to whoever wants to implement it.
 
 ### Write Documentation
 
-NetBox Sitemap could always use more documentation, whether as part of the
-official NetBox Sitemap docs, in docstrings, or even on the web in blog posts,
+NetBox Sitemap Plugin could always use more documentation, whether as part of the
+official NetBox Sitemap Plugin docs, in docstrings, or even on the web in blog posts,
 articles, and such.
 
 ### Submit Feedback

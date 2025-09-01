@@ -3,8 +3,23 @@ from django.urls import reverse
 from netbox.models import NetBoxModel
 
 
-class NetBoxSitemap(NetBoxModel):
-    name = models.CharField(max_length=100)
+class Sitemap(NetBoxModel):
+    name = models.CharField(
+        max_length=100
+    )
+    site_groups = models.ManyToManyField(
+        to='dcim.SiteGroup',
+        related_name='sitemaps',
+        blank=True
+    )
+    sites = models.ManyToManyField(
+        to='dcim.Site',
+        related_name='sitemaps',
+        blank=True
+    )
+    comments = models.TextField(
+        blank=True
+    )
 
     class Meta:
         ordering = ("name",)
@@ -13,4 +28,4 @@ class NetBoxSitemap(NetBoxModel):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("plugins:netbox_sitemap:netboxsitemap", args=[self.pk])
+        return reverse("plugins:netbox_sitemap:sitemap", args=[self.pk])

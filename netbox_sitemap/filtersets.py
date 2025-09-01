@@ -1,11 +1,11 @@
 from netbox.filtersets import NetBoxModelFilterSet
-from .models import NetBoxSitemap
+from .models import Sitemap
 
 
-# class NetBoxSitemapFilterSet(NetBoxModelFilterSet):
+# class SitemapFilterSet(NetBoxModelFilterSet):
 #
 #     class Meta:
-#         model = NetBoxSitemap
+#         model = Sitemap
 #         fields = ['name', ]
 #
 #     def search(self, queryset, name, value):

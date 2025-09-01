@@ -1,6 +1,6 @@
-# NetBox Sitemap
+# NetBox Sitemap Plugin
 
-NetBox plugin to display sites on a map.
+NetBox plugin for displaying sites on a map.
 
 
 * Free software: MIT

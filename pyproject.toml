@@ -9,9 +9,9 @@ build-backend = "setuptools.build_meta"
 name =  "netbox-sitemap"
 version = "0.1.0"
 authors = [
-    {name = "Lars", email = "mail@ldaeschner.de"},
+    {name = "Lars Däschner", email = "contact@ldaeschner.de"},
 ]
-description = "NetBox plugin to display sites on a map."
+description = "NetBox plugin for displaying sites on a map."
 readme = "README.md"
 
 classifiers=[

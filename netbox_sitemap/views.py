@@ -4,19 +4,19 @@ from netbox.views import generic
 from . import filtersets, forms, models, tables
 
 
-class NetBoxSitemapView(generic.ObjectView):
-    queryset = models.NetBoxSitemap.objects.all()
+class SitemapView(generic.ObjectView):
+    queryset = models.Sitemap.objects.all()
 
 
-class NetBoxSitemapListView(generic.ObjectListView):
-    queryset = models.NetBoxSitemap.objects.all()
-    table = tables.NetBoxSitemapTable
+class SitemapListView(generic.ObjectListView):
+    queryset = models.Sitemap.objects.all()
+    table = tables.SitemapTable
 
 
-class NetBoxSitemapEditView(generic.ObjectEditView):
-    queryset = models.NetBoxSitemap.objects.all()
-    form = forms.NetBoxSitemapForm
+class SitemapEditView(generic.ObjectEditView):
+    queryset = models.Sitemap.objects.all()
+    form = forms.SitemapForm
 
 
-class NetBoxSitemapDeleteView(generic.ObjectDeleteView):
-    queryset = models.NetBoxSitemap.objects.all()
+class SitemapDeleteView(generic.ObjectDeleteView):
+    queryset = models.Sitemap.objects.all()
