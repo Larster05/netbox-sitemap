@@ -3,7 +3,7 @@ from rest_framework import serializers
 from netbox.api.serializers import NetBoxModelSerializer
 from ..models import Sitemap
 
-class SitemapsSerializer(NetBoxModelSerializer):
+class SitemapSerializer(NetBoxModelSerializer):
     url = serializers.HyperlinkedIdentityField(
         view_name='plugins-api:netbox_sitemap-api:sitemap-detail'
     )
