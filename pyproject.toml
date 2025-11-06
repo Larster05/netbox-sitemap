@@ -54,4 +54,4 @@ include = ["netbox_sitemap*"]
 netbox_sitemap = ["templates/**", "static/**"]
 
 [tool.setuptools.dynamic]
-version = {attr = "netbox_sitemap.__version__}
+version = {attr = "netbox_sitemap.__version__"}
