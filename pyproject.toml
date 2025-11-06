@@ -7,7 +7,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name =  "netbox-sitemap"
-version = "0.1.0-alpha5"
+#version = "0.1.0-alpha5"
+dynamic = ["version"]
 authors = [
     {name = "Lars Däschner", email = "contact@ldaeschner.de"},
 ]
@@ -45,10 +46,12 @@ Tracker = "https://github.com/Larster05/netbox-sitemap/issues"
 line-length = 120
 target_version = ['py39', 'py310', 'py311', 'py312']
 
+[tool.setuptools.packages.find]
+exclude = ["netbox_sitemap.tests*"]
+include = ["netbox_sitemap*"]
+
 [tool.setuptools.package-data]
 netbox_sitemap = ["templates/**", "static/**"]
 
-# alternativly use find if there are to many folders
-#[tool.setuptools.packages.find]
-#exclude = ["validity.tests*"]
-#include = ["validity*"]
+[tool.setuptools.dynamic]
+version = {attr = "netbox_sitemap.__version__}
