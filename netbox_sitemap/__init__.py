@@ -2,7 +2,7 @@
 
 __author__ = """Lars Däschner"""
 __email__ = "contact@ldaeschner.de"
-__version__ = "0.1.0-alpha3"
+__version__ = "0.1.0-alpha4"
 
 
 from netbox.plugins import PluginConfig
