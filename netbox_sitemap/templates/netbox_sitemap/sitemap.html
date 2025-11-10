@@ -13,25 +13,27 @@
 {% endblock head %}
 
 
-{% block content %}
+{% block content %} 
   <div class="row mb-3">
-    <div class="col col-md-6">
+    <div class="col col-md-12">
       <div class="card">
-
         <h5 class="card-header">NetBox Sitemap Plugin</h5>
-
-        <table class="table table-hover attr-table">
-          <tr>
-            <th scope="row">Name</th>
-            <td>{{ object.name }}</td>
-          </tr>
-        </table>
+        <div class="card-body" id="content-container">
+          <table class="table table-hover attr-table">
+            <tr>
+              <th scope="row">Name</th>
+              <td>{{ object.name }}</td>
+            </tr>
+          </table>
+        </div>
       </div>
-    </div>
-    <div class="col col-md-6">
-      <div id="map"></div>
-      <script type="module" src="{% static 'netbox_sitemap/app.js' %}"></script>
-      MAP
+      <div class="card">
+        <h5 class="card-header">Map</h5>
+        <div class="card-body" id="content-container">
+          <div id="map"></div>
+          <script type="module" src="{% static 'netbox_sitemap/app.js' %}"></script>
+        </div>
+      </div>
     </div>
   </div>
 {% endblock content %}
