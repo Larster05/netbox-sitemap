@@ -1,6 +1,7 @@
 import "https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js";
 
 const middleOfUSA = [-100, 40];
+const middleOfDE = [10, 50];
 
 async function getLocation() {
   try {
@@ -10,20 +11,21 @@ async function getLocation() {
       return [json.lon, json.lat];
     }
   } catch (error) {}
-  return middleOfUSA;
+  return middleOfDE;
 }
 
 async function init() {
   const map = new maplibregl.Map({
     style: "/static/netbox_sitemap/styles/dark.json",
     //style: "https://tiles.openfreemap.org/styles/liberty",
-    center: middleOfUSA,
+    center: middleOfDE,
     zoom: 2,
     container: "map",
   });
 
-  const location = await getLocation();
-  if (location !== middleOfUSA) {
+  //const location = await getLocation();
+  const location = [8.5782379168447, 49.1594315493931];
+  if (location !== middleOfDE) {
     map.flyTo({ center: location, zoom: 8 });
 
     new maplibregl.Popup({
