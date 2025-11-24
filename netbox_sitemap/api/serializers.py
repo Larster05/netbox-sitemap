@@ -11,6 +11,9 @@ class SitemapSerializer(NetBoxModelSerializer):
     class Meta:
         model = Sitemap
         fields = (
-            'id', 'display', 'name', 'site_groups', 'sites', 'comments', 'tags', 'custom_fields', 'created',
-            'last_updated',
+            'id', 'url', 'display', 'name', 'site_groups', 'sites', 'comments', 'tags', 'custom_fields', 'created',
+            'last_updated'
+        )
+        brief_fields =(
+            'id', 'url', 'display', 'name', 'site_groups', 'sites'
         )

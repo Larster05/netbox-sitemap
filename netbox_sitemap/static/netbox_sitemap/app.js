@@ -1,7 +1,13 @@
+// start initial ----------------------------------------------------------------------------- !
+
 import "https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js";
 
 const middleOfUSA = [-100, 40];
 const middleOfDE = [10, 50];
+
+var obj_id = document.getElementById('obj_id').value;
+
+// end initial ----------------------------------------------------------------------------- !
 
 async function getLocation() {
   try {
@@ -32,7 +38,7 @@ async function init() {
       closeOnClick: false,
     })
       .setLngLat(location)
-      .setHTML("<h3>You are approximately here!</h3>")
+      .setHTML("<h3>You are approximately here! ID: "+obj_id+"</h3>")
       .addTo(map);
   }
 }

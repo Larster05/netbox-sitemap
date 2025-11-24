@@ -9,6 +9,8 @@ class SitemapView(generic.ObjectView):
 class SitemapListView(generic.ObjectListView):
     queryset = models.Sitemap.objects.all()
     table = tables.SitemapTable
+    filterset = filtersets.SitemapFilterSet
+    filterset_form = forms.SitemapFilterForm
 
 
 class SitemapEditView(generic.ObjectEditView):
