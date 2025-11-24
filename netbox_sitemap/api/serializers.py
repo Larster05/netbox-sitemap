@@ -1,5 +1,3 @@
-from dcim.api.serializers import SiteGroupSerializer, SiteSerializer
-
 from rest_framework import serializers
 
 from netbox.api.serializers import NetBoxModelSerializer
@@ -9,8 +7,6 @@ class SitemapSerializer(NetBoxModelSerializer):
     url = serializers.HyperlinkedIdentityField(
         view_name='plugins-api:netbox_sitemap-api:sitemap-detail'
     )
-    site_groups = SiteGroupSerializer(nested=True, required=False, allow_null=True)
-    sites = SiteSerializer(nested=True, required=False, allow_null=True)
 
     class Meta:
         model = Sitemap
