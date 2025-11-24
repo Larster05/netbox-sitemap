@@ -5,6 +5,6 @@ from .models import Sitemap
 class SitemapFilterSet(NetBoxModelFilterSet):
     class Meta:
         model = Sitemap
-        fields = ['id', 'name']
+        fields = ('id', 'name', 'site_groups', 'sites')
     def search(self, queryset, name, value):
-        return queryset.filter(description__icontains=value)
+        return queryset.filter(name__icontains=value)

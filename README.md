@@ -39,11 +39,11 @@ Enable the plugin in `/opt/netbox/netbox/netbox/configuration.py`,
 
 ```python
 PLUGINS = [
-    'netbox-sitemap'
+    'netbox_sitemap'
 ]
 
 PLUGINS_CONFIG = {
-    "netbox-sitemap": {},
+    "netbox_sitemap": {},
 }
 ```
 

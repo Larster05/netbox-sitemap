@@ -13,7 +13,7 @@ class SitemapConfig(PluginConfig):
     verbose_name = "NetBox Sitemap Plugin"
     description = "NetBox plugin for displaying sites on a map."
     version = "version"
-    base_url = "netbox_sitemap"
+    base_url = "netbox-sitemap"
 
 
 config = SitemapConfig
