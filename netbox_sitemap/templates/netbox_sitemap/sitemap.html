@@ -16,6 +16,7 @@
 
 <!--- start js vars -->
 <input type="hidden" id="obj_id" value="{{ object.id }}">
+<input type="hidden" id="obj" value="{{ object }}">
 <!--- end js vars -->
 
   <div class="row mb-3">
@@ -33,6 +34,13 @@
         <h5 class="card-header">Map</h5>
         <div class="card-body" id="content-container">
           <div id="map"></div>
+          <script type="module" src="{% static 'netbox_sitemap/app.js' %}"></script>
+        </div>
+      </div>
+      <div class="card">
+        <h5 class="card-header">Tests</h5>
+        <div class="card-body" id="content-container">
+          <div id="tests-card"></div>
           <script type="module" src="{% static 'netbox_sitemap/app.js' %}"></script>
         </div>
       </div>
