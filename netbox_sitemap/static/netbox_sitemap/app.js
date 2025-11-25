@@ -91,7 +91,7 @@ async function init() {
       closeOnClick: false,
       closeButton: false,
     })
-      .setLngLat([site_obj.latitude, site_obj.longitude])
+      .setLngLat([site_obj.longitude, site_obj.latitude])
 //      .setHTML(`<h3>Site ${site_obj.name} is located here.</h3>`)
       .setHTML(`<strong><a href="/dcim/sites/${site_obj.id}/" target="_blank" title="Opens in a new window">${site_obj.name}</a></strong>`)
       .addTo(map);
