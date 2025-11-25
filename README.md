@@ -9,13 +9,13 @@ NetBox plugin for displaying sites on a map.
 
 ## Features
 
-The features the plugin provides should be listed here.
+NetBox plugin for displaying sites on a map.
 
 ## Compatibility
 
 | NetBox Version | Plugin Version |
 |----------------|----------------|
-|     4.0        |      0.1.0     |
+|     4.0        |      0.2.0     |
 
 ## Installing
 
@@ -25,14 +25,10 @@ For adding to a NetBox Docker setup see
 While this is still in development and not yet on pypi you can install with pip:
 
 ```bash
-pip install git+https://github.com/Larster05/netbox-sitemap
+pip install netbox-sitemap
 ```
-
 or by adding to your `local_requirements.txt` or `plugin_requirements.txt` (netbox-docker):
 
-```bash
-git+https://github.com/Larster05/netbox-sitemap
-```
 
 Enable the plugin in `/opt/netbox/netbox/netbox/configuration.py`,
  or if you use netbox-docker, your `/configuration/plugins.py` file :
