@@ -17,6 +17,11 @@ class Sitemap(NetBoxModel):
         related_name='sitemaps',
         blank=True
     )
+    regions = models.ManyToManyField(
+        to='dcim.Region',
+        related_name='sitemaps',
+        blank=True
+    )
     comments = models.TextField(
         blank=True
     )
