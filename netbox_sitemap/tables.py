@@ -16,8 +16,12 @@ class SitemapTable(NetBoxTable):
         linkify_item=True,
         verbose_name=('Sites')
     )
+    regions = columns.ManyToManyColumn(
+        linkify_item=True,
+        verbose_name=('Regions')
+    )
 
     class Meta(NetBoxTable.Meta):
         model = Sitemap
-        fields = ("pk", "id", "name", "site_groups", "sites", "tags", "comments", "actions")
-        default_columns = ("name", "site_groups", "sites")
+        fields = ("pk", "id", "name", "site_groups", "sites", "regions", "tags", "comments", "actions")
+        default_columns = ("name", "site_groups", "sites", "regions")

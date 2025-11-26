@@ -2,7 +2,7 @@
 
 __author__ = """Lars Däschner"""
 __email__ = "contact@ldaeschner.de"
-__version__ = "0.2.1"
+__version__ = "0.2.2"
 
 
 from netbox.plugins import PluginConfig
@@ -12,7 +12,8 @@ class SitemapConfig(PluginConfig):
     name = "netbox_sitemap"
     verbose_name = "NetBox Sitemap Plugin"
     description = "NetBox plugin for displaying sites on a map."
-    version = "version"
+    version = __version__
+    author = __author__
     base_url = "netbox-sitemap"
 
 
