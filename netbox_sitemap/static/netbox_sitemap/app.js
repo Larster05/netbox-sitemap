@@ -190,13 +190,21 @@ async function init() {
   //    .addTo(map);
   //}
 
-  for (let site_obj of sites) {
-    new maplibregl.Popup({
-      closeOnClick: false,
-      closeButton: false,
+  //for (let site_obj of sites) {
+  //  new maplibregl.Popup({
+  //    closeOnClick: false,
+  //    closeButton: false,
+  //  })
+  //    .setLngLat([site_obj.longitude, site_obj.latitude])
+  //    .setHTML(`<strong><a href="/dcim/sites/${site_obj.id}/" target="_blank" title="Opens in a new window">${site_obj.name}</a></strong>`)
+  //    .addTo(map);
+  //}
+
+  for (let site of sites) {
+    new maplibregl.Marker({
+      draggable: false
     })
-      .setLngLat([site_obj.longitude, site_obj.latitude])
-      .setHTML(`<strong><a href="/dcim/sites/${site_obj.id}/" target="_blank" title="Opens in a new window">${site_obj.name}</a></strong>`)
+      .setLngLat([site.longitude, site.latitude])
       .addTo(map);
   }
 }
