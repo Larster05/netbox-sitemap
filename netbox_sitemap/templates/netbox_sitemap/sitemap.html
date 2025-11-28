@@ -15,15 +15,51 @@
             </tr>
             <tr>
               <th scope="row">Regions</th>
-              <td>{{ object.get_regions_display }}</td>
+              <td>
+                {% if object.regions.all|length > 1 %}
+                  {% for region in object.regions.all %}
+                    {% if forloop.last %}
+                      <a href="{{ region.get_absolute_url }}">{{ region.name }}</a>
+                    {% else %}
+                      <a href="{{ region.get_absolute_url }}">{{ region.name }}</a>, 
+                    {% endif %}
+                  {% endfor %}
+                {% else %}
+                  {{ object.regions.get|linkify|placeholder }}
+                {% endif %}
+              </td>
             </tr>
             <tr>
               <th scope="row">Site Groups</th>
-              <td>{{ object.get_site_groups_display }}</td>
+              <td>
+                {% if object.site_groups.all|length > 1 %}
+                  {% for site_group in object.site_groups.all %}
+                    {% if forloop.last %}
+                      <a href="{{ site_group.get_absolute_url }}">{{ site_group.name }}</a>
+                    {% else %}
+                      <a href="{{ site_group.get_absolute_url }}">{{ site_group.name }}</a>, 
+                    {% endif %}
+                  {% endfor %}
+                {% else %}
+                  {{ object.site_groups.get|linkify|placeholder }}
+                {% endif %}
+              </td>
             </tr>
             <tr>
               <th scope="row">Sites</th>
-              <td>{{ object.get_sites_display }}</td>
+              <td>
+                {% if object.sites.all|length > 1 %}
+                  {% for site in object.sites.all %}
+                    {% if forloop.last %}
+                      <a href="{{ site.get_absolute_url }}">{{ site.name }}</a>
+                    {% else %}
+                      <a href="{{ site.get_absolute_url }}">{{ site.name }}</a>, 
+                    {% endif %}
+                  {% endfor %}
+                {% else %}
+                  {{ object.sites.get|linkify|placeholder }}
+                {% endif %}
+              </td>
             </tr>
           </table>
         </div>
