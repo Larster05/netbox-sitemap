@@ -23,7 +23,7 @@ class SitemapMapView(generic.ObjectView):
     )
 
 
-class SitemapListView(generic.ObjectChildrenView):
+class SitemapListView(generic.ObjectListView):
     queryset = Sitemap.objects.all()
     table = SitemapTable
     filterset = SitemapFilterSet
