@@ -1,26 +1,11 @@
 
 {% extends 'generic/object.html' %}
 {% load render_table from django_tables2 %}
-{% load static %}
 
-
-{% block head %}
-<meta charset="UTF-8">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🗺️</text></svg>">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet" />
-<link rel="stylesheet" href="{% static 'netbox_sitemap/styles.css' %}">
-{% endblock head %}
 
 {% block content %}
-
-<!--- start js vars -->
-<input type="hidden" id="obj_id" value="{{ object.id }}">
-<input type="hidden" id="obj" value="{{ object }}">
-<!--- end js vars -->
-
   <div class="row mb-3">
-    <div class="col col-md-12">
+    <div class="col col-md-6">
       <div class="card">
         <h5 class="card-header">NetBox Sitemap Plugin</h5>
           <table class="table table-hover attr-table">
@@ -28,22 +13,61 @@
               <th scope="row">Name</th>
               <td>{{ object.name }}</td>
             </tr>
+            <tr>
+              <th scope="row">Regions</th>
+              <td>
+                {% if object.regions.all|length > 1 %}
+                  {% for region in object.regions.all %}
+                    {% if forloop.last %}
+                      <a href="{{ region.get_absolute_url }}">{{ region.name }}</a>
+                    {% else %}
+                      <a href="{{ region.get_absolute_url }}">{{ region.name }}</a>, 
+                    {% endif %}
+                  {% endfor %}
+                {% else %}
+                  {{ object.regions.get|linkify|placeholder }}
+                {% endif %}
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Site Groups</th>
+              <td>
+                {% if object.site_groups.all|length > 1 %}
+                  {% for site_group in object.site_groups.all %}
+                    {% if forloop.last %}
+                      <a href="{{ site_group.get_absolute_url }}">{{ site_group.name }}</a>
+                    {% else %}
+                      <a href="{{ site_group.get_absolute_url }}">{{ site_group.name }}</a>, 
+                    {% endif %}
+                  {% endfor %}
+                {% else %}
+                  {{ object.site_groups.get|linkify|placeholder }}
+                {% endif %}
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Sites</th>
+              <td>
+                {% if object.sites.all|length > 1 %}
+                  {% for site in object.sites.all %}
+                    {% if forloop.last %}
+                      <a href="{{ site.get_absolute_url }}">{{ site.name }}</a>
+                    {% else %}
+                      <a href="{{ site.get_absolute_url }}">{{ site.name }}</a>, 
+                    {% endif %}
+                  {% endfor %}
+                {% else %}
+                  {{ object.sites.get|linkify|placeholder }}
+                {% endif %}
+              </td>
+            </tr>
           </table>
-      </div>
-      <div class="card">
-        <h5 class="card-header">Map</h5>
-        <div class="card-body" id="content-container">
-          <div id="map"></div>
-          <script type="module" src="{% static 'netbox_sitemap/app.js' %}"></script>
         </div>
-      </div>
-      <div class="card">
-        <h5 class="card-header">Tests</h5>
-        <div class="card-body" id="content-container">
-          <div id="tests-card"></div>
-          <script type="module" src="{% static 'netbox_sitemap/app.js' %}"></script>
-        </div>
-      </div>
+      {% include 'inc/panels/custom_fields.html' %}
+    </div>
+    <div class="col col-md-6">
+      {% include 'inc/panels/tags.html' %}
+      {% include 'inc/panels/comments.html' %}
     </div>
   </div>
 {% endblock content %}

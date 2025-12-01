@@ -20,6 +20,7 @@ class SitemapTable(NetBoxTable):
         linkify_item=True,
         verbose_name=('Regions')
     )
+    tags = columns.TagColumn()
 
     class Meta(NetBoxTable.Meta):
         model = Sitemap

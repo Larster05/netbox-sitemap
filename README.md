@@ -15,7 +15,7 @@ NetBox plugin for displaying sites on a map.
 
 | NetBox Version | Plugin Version |
 |----------------|----------------|
-|     4.0        |      0.2.2     |
+|     4.0        |      0.2.3     |
 
 ## Installing
 

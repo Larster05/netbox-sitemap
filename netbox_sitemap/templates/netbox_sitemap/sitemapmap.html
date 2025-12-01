@@ -1,0 +1,30 @@
+
+{% extends 'generic/object.html' %}
+{% load render_table from django_tables2 %}
+{% load static %}
+
+
+{% block head %}
+<meta charset="UTF-8">
+<!--- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+<link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet" />
+<link rel="stylesheet" href="{% static 'netbox_sitemap/styles.css' %}">
+{% endblock head %}
+
+{% block content %}
+
+<!--- start js vars -->
+<input type="hidden" id="obj_id" value="{{ object.id }}">
+<!--- end js vars -->
+
+  <div class="row mb-3">
+    <div class="col col-md-12">
+      <div class="card">
+        <div class="card-body" id="content-container">
+          <div id="map"></div>
+          <script type="module" src="{% static 'netbox_sitemap/app.js' %}"></script>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
