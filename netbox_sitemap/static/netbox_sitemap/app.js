@@ -48,7 +48,7 @@ async function init() {
     // create a DOM element for the marker
     const el = document.createElement('div');
     el.className = 'marker';
-    el.style.backgroundImage = "url(/static/netbox_sitemap/branch.png)";
+    el.style.backgroundImage = "url(/static/netbox_sitemap/images/branch.png)";
     el.style.backgroundPosition = "center center";
     el.style.backgroundRepeat = "no-repeat"
     el.style.width = `${marker.properties.iconSize[0]}px`;
