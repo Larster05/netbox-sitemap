@@ -16,5 +16,9 @@ class SitemapConfig(PluginConfig):
     author = __author__
     base_url = "netbox-sitemap"
 
+    def ready(self):
+        super().ready()
+        from . import widgets
+
 
 config = SitemapConfig
