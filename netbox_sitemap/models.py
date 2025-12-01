@@ -39,18 +39,36 @@ class Sitemap(NetBoxModel):
     def get_markers(self):
         markers = []
         site_ids = []
+        # requesting site_ids from sites
         for site in self.sites.all():
-            if site.id not in site_ids:
+            if site.longitude != None and site.latitude != None and site.id not in site_ids:
                 site_ids.append(site.id)
-                markers.append({ 'type': 'Feature', 'properties': { 'id': site.id, 'name': site.name, 'iconSize': [40, 40] }, 'geometry': { 'type': 'Point', 'coordinates': [ site.longitude, site.latitude ] } })
+        # requesting site_ids from site-groups
         for group in self.site_groups.all():
             for site in Site.objects.filter(group=group):
-                if site.id not in site_ids:
+                if site.longitude != None and site.latitude != None and site.id not in site_ids:
                     site_ids.append(site.id)
-                    markers.append({ 'type': 'Feature', 'properties': { 'id': site.id, 'name': site.name, 'iconSize': [40, 40] }, 'geometry': { 'type': 'Point', 'coordinates': [ site.longitude, site.latitude ] } })
+        # requesting site_ids from regions
         for region in self.regions.all():
             for site in Site.objects.filter(region=region):
-                if site.id not in site_ids:
+                if site.longitude != None and site.latitude != None and site.id not in site_ids:
                     site_ids.append(site.id)
-                    markers.append({ 'type': 'Feature', 'properties': { 'id': site.id, 'name': site.name, 'iconSize': [40, 40] }, 'geometry': { 'type': 'Point', 'coordinates': [ site.longitude, site.latitude ] } })
+        # populating markers with site information
+        for site_id in site_ids:
+            site = Site.objects.get(id=site_id)
+            markers.append({
+                'type': 'Feature',
+                'properties': {
+                    'url': site.get_absolute_url(),
+                    'name': site.name,
+                    'iconSize': [40, 40]
+                },
+                'geometry': {
+                    'type': 'Point',
+                    'coordinates': [
+                        site.longitude,
+                        site.latitude
+                    ]
+                }
+            })
         return markers
