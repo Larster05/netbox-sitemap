@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from netbox.models import NetBoxModel
+from dcim.models import Site
 
 
 class Sitemap(NetBoxModel):
@@ -34,3 +35,22 @@ class Sitemap(NetBoxModel):
 
     def get_absolute_url(self):
         return reverse("plugins:netbox_sitemap:sitemap", args=[self.pk])
+
+    def get_markers(self):
+        markers = []
+        site_ids = []
+        for site in self.sites.all():
+            if site.id not in site_ids:
+                site_ids.append(site.id)
+                markers.append({ 'type': 'Feature', 'properties': { 'id': site.id, 'name': site.name, 'iconSize': [40, 40] }, 'geometry': { 'type': 'Point', 'coordinates': [ site.longitude, site.latitude ] } })
+        for group in self.site_groups.all():
+            for site in Site.objects.filter(group=group):
+                if site.id not in site_ids:
+                    site_ids.append(site.id)
+                    markers.append({ 'type': 'Feature', 'properties': { 'id': site.id, 'name': site.name, 'iconSize': [40, 40] }, 'geometry': { 'type': 'Point', 'coordinates': [ site.longitude, site.latitude ] } })
+        for region in self.regions.all():
+            for site in Site.objects.filter(region=region):
+                if site.id not in site_ids:
+                    site_ids.append(site.id)
+                    markers.append({ 'type': 'Feature', 'properties': { 'id': site.id, 'name': site.name, 'iconSize': [40, 40] }, 'geometry': { 'type': 'Point', 'coordinates': [ site.longitude, site.latitude ] } })
+        return markers
