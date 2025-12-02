@@ -2,7 +2,6 @@
 
 import "https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js";
 
-const middleOfUSA = [-100, 40];
 const middleOfDE = [10, 50];
 
 const obj_id = document.getElementById('obj_id').value;
@@ -27,43 +26,85 @@ async function getSitemap(sitemap_id){
 }
 
 async function init() {
-  const map = new maplibregl.Map({
-    style: "/static/netbox_sitemap/styles/dark.json",
-    //style: "https://tiles.openfreemap.org/styles/liberty",
-    center: middleOfDE,
-    zoom: 6,
-    container: "map",
-  });
-
+  // request sitemap object via API
   const sitemap_obj = await getSitemap(obj_id);
 
-  const geojson = {
-	  'type': 'FeatureCollection',
-	  'features': sitemap_obj.markers
-	};
-  console.log(geojson)
+  // creating map
+  const map = new maplibregl.Map({
+    container: "map",
+    style: "/static/netbox_sitemap/styles/dark.json",
+    center: middleOfDE,
+    zoom: 6,
+  });
 
-  // add markers to map
-  geojson.features.forEach((marker) => {
-    // create a DOM element for the marker
-    const el = document.createElement('div');
-    el.className = 'marker';
-    el.style.backgroundImage = "url(/static/netbox_sitemap/images/branch.png)";
-    el.style.backgroundPosition = "center center";
-    el.style.backgroundRepeat = "no-repeat"
-    el.style.width = `${marker.properties.iconSize[0]}px`;
-    el.style.height = `${marker.properties.iconSize[1]}px`;
+  map.on('load', async () => {
+        const image = await map.loadImage('/static/netbox_sitemap/images/branch.png');
+        // Add an image to use as a custom marker
+        map.addImage('custom-marker', image.data);
 
-    el.addEventListener('click', () => {
-      window.alert(marker.properties.name);
+        map.addSource('places', {
+            'type': 'geojson',
+            'data': {
+                'type': 'FeatureCollection',
+                'features': sitemap_obj.markers
+            }
+        });
+
+        // Add a layer showing the places.
+        map.addLayer({
+            'id': 'places',
+            'type': 'symbol',
+            'source': 'places',
+            'layout': {
+                'icon-image': 'custom-marker',
+                'icon-overlap': 'always'
+            }
+        });
+
+        // Create a popup, but don't add it to the map yet.
+        const popup = new maplibregl.Popup({
+            closeButton: false,
+        });
+
+        // Make sure to detect marker change for overlapping markers
+        // and use mousemove instead of mouseenter event
+        let currentFeatureCoordinates = undefined;
+        map.on('mousemove', 'places', (e) => {
+            const featureCoordinates = e.features[0].geometry.coordinates.toString();
+            if (currentFeatureCoordinates !== featureCoordinates) {
+                currentFeatureCoordinates = featureCoordinates;
+
+                // Change the cursor style as a UI indicator.
+                map.getCanvas().style.cursor = 'pointer';
+
+                const popup_coordinates = e.features[0].geometry.coordinates.slice();
+                const popup_text = e.features[0].properties.name;
+                const popup_url = e.features[0].properties.url;
+
+                // Ensure that if the map is zoomed out such that multiple
+                // copies of the feature are visible, the popup appears
+                // over the copy being pointed to.
+                while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                    coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+                }
+
+                // Populate the popup and set its coordinates
+                // based on the feature found.
+                popup.setLngLat(popup_coordinates).setHTML(`<strong><a href="${popup_url}" target="_blank">${popup_text}</a></strong>`).addTo(map);
+            }
+        });
+
+        // Change the cursor to a pointer when the mouse is over the places layer.
+        map.on('mouseenter', 'places', () => {
+            map.getCanvas().style.cursor = 'pointer';
+        });
+
+        // Change it back to a pointer when it leaves.
+        map.on('mouseleave', 'places', () => {
+            currentFeatureCoordinates = undefined;
+            map.getCanvas().style.cursor = '';
+        });
     });
-
-    // add marker to map
-    new maplibregl.Marker({element: el})
-      .setLngLat(marker.geometry.coordinates)
-      .addTo(map);
-    });
-
 }
 
 init();
