@@ -82,6 +82,7 @@ async function init() {
         // Create a popup, but don't add it to the map yet.
         const popup = new maplibregl.Popup({
             closeButton: false,
+            offset: [0, -17],
         });
 
         // Make sure to detect marker change for overlapping markers
@@ -102,8 +103,8 @@ async function init() {
                 // Ensure that if the map is zoomed out such that multiple
                 // copies of the feature are visible, the popup appears
                 // over the copy being pointed to.
-                while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-                    coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+                while (Math.abs(e.lngLat.lng - popup_coordinates[0]) > 180) {
+                    popup_coordinates[0] += e.lngLat.lng > popup_coordinates[0] ? 360 : -360;
                 }
 
                 // Populate the popup and set its coordinates
