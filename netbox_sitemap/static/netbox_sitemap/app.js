@@ -2,7 +2,7 @@
 
 import "https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js";
 
-const middleOfDE = [10, 50];
+const middleOfDE = [10.4, 51];
 
 const obj_id = document.getElementById('obj_id').value;
 const map_type = document.getElementById('map_type').value;
