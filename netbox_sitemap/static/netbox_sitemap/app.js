@@ -5,8 +5,25 @@ import "https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js";
 const middleOfDE = [10, 50];
 
 const obj_id = document.getElementById('obj_id').value;
+const map_type = document.getElementById('map_type').value;
 
 // end initial ----------------------------------------------------------------------------- !
+
+function get_attrctl(map_type) {
+  if (map_type == "tab") {
+    return true
+  } else {
+    return false
+  }
+}
+
+function get_zoom(map_type) {
+  if (map_type == "tab") {
+    return 6
+  } else {
+    return 5.7
+  }
+}
 
 async function getSitemap(sitemap_id){
   try {
@@ -34,7 +51,8 @@ async function init() {
     container: "map",
     style: "/static/netbox_sitemap/styles/dark.json",
     center: middleOfDE,
-    zoom: 6,
+    zoom: get_zoom(map_type),
+    attributionControl: get_attrctl(map_type),
   });
 
   map.on('load', async () => {
