@@ -56,7 +56,7 @@ async function init() {
   });
 
   map.on('load', async () => {
-        const image = await map.loadImage('/static/netbox_sitemap/images/branch.png');
+        const image = await map.loadImage('/static/netbox_sitemap/images/marker.png');
         // Add an image to use as a custom marker
         map.addImage('custom-marker', image.data);
 
