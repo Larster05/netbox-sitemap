@@ -2,11 +2,28 @@
 
 import "https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js";
 
-const middleOfDE = [10, 50];
+const middleOfDE = [10.4, 51];
 
 const obj_id = document.getElementById('obj_id').value;
+const map_type = document.getElementById('map_type').value;
 
 // end initial ----------------------------------------------------------------------------- !
+
+function get_attrctl(map_type) {
+  if (map_type == "tab") {
+    return true
+  } else {
+    return false
+  }
+}
+
+function get_zoom(map_type) {
+  if (map_type == "tab") {
+    return 6
+  } else {
+    return 5.7
+  }
+}
 
 async function getSitemap(sitemap_id){
   try {
@@ -34,7 +51,8 @@ async function init() {
     container: "map",
     style: "/static/netbox_sitemap/styles/dark.json",
     center: middleOfDE,
-    zoom: 6,
+    zoom: get_zoom(map_type),
+    attributionControl: get_attrctl(map_type),
   });
 
   map.on('load', async () => {
@@ -64,6 +82,7 @@ async function init() {
         // Create a popup, but don't add it to the map yet.
         const popup = new maplibregl.Popup({
             closeButton: false,
+            offset: [0, -17],
         });
 
         // Make sure to detect marker change for overlapping markers
@@ -84,8 +103,8 @@ async function init() {
                 // Ensure that if the map is zoomed out such that multiple
                 // copies of the feature are visible, the popup appears
                 // over the copy being pointed to.
-                while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-                    coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+                while (Math.abs(e.lngLat.lng - popup_coordinates[0]) > 180) {
+                    popup_coordinates[0] += e.lngLat.lng > popup_coordinates[0] ? 360 : -360;
                 }
 
                 // Populate the popup and set its coordinates
