@@ -25,6 +25,14 @@ function get_zoom(map_type) {
   }
 }
 
+function get_style(colormode) {
+  if (colormode == "light") {
+    return "/static/netbox_sitemap/styles/liberty.json"
+  } else {
+    return "/static/netbox_sitemap/styles/dark.json"
+  }
+}
+
 async function getSitemap(sitemap_id){
   try {
     let response = await fetch(`/api/plugins/netbox-sitemap/sitemaps/${sitemap_id}/`);
@@ -49,10 +57,14 @@ async function init() {
   // creating map
   const map = new maplibregl.Map({
     container: "map",
-    style: "/static/netbox_sitemap/styles/dark.json",
+    style: get_style(window.localStorage['netbox-color-mode']),
     center: middleOfDE,
     zoom: get_zoom(map_type),
     attributionControl: get_attrctl(map_type),
+  });
+
+  window.addEventListener('netbox.colorModeChanged', e => {
+    map.setStyle(get_style(e.detail.netboxColorMode))
   });
 
   map.on('load', async () => {
