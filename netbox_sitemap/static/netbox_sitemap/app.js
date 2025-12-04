@@ -25,6 +25,14 @@ function get_zoom(map_type) {
   }
 }
 
+function get_style(colormode) {
+  if (colormode == "light") {
+    return "/static/netbox_sitemap/styles/liberty.json"
+  } else {
+    return "/static/netbox_sitemap/styles/dark.json"
+  }
+}
+
 async function getSitemap(sitemap_id){
   try {
     let response = await fetch(`/api/plugins/netbox-sitemap/sitemaps/${sitemap_id}/`);
@@ -42,14 +50,11 @@ async function getSitemap(sitemap_id){
   }
 }
 
-async function init() {
-  // request sitemap object via API
-  const sitemap_obj = await getSitemap(obj_id);
-
+async function init(sitemap_obj) {
   // creating map
   const map = new maplibregl.Map({
     container: "map",
-    style: "/static/netbox_sitemap/styles/dark.json",
+    style: get_style(window.localStorage['netbox-color-mode']),
     center: middleOfDE,
     zoom: get_zoom(map_type),
     attributionControl: get_attrctl(map_type),
@@ -126,4 +131,16 @@ async function init() {
     });
 }
 
-init();
+
+// start code ----------------------------------------------------------------------------- !
+
+// request sitemap object via API
+const sitemap_obj = await getSitemap(obj_id);
+
+//first init
+init(sitemap_obj);
+
+//rerun init if color mode is changed
+window.addEventListener('netbox.colorModeChanged', e => {
+  init(sitemap_obj);
+});
