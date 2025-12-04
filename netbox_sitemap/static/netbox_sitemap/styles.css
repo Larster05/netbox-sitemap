@@ -8,7 +8,7 @@ body {
 
 #map {
   width: 100%;
-  height:  70vh;
+  height: calc(100vh - 304px);
 }
 
 .marker {
