@@ -6,9 +6,19 @@ body {
   height: 100vh;
 }
 
-#map {
+.viewtab-map {
   width: 100%;
-  height: calc(100vh - 304px);
+  height: 100%;
+}
+
+.widget-map {
+  width: calc(100% + 1rem);
+  height: calc(100% + 1rem);
+  margin: -.5rem;
+}
+
+.viewtab-card-full-height {
+  height: calc(100vh - 280px)
 }
 
 .marker {
